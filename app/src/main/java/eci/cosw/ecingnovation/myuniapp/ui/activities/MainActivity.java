@@ -11,21 +11,41 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import eci.cosw.ecingnovation.myuniapp.R;
+import eci.cosw.ecingnovation.myuniapp.network.APIClient;
+import eci.cosw.ecingnovation.myuniapp.network.model.AppNew;
+import eci.cosw.ecingnovation.myuniapp.network.services.NewsService;
 import eci.cosw.ecingnovation.myuniapp.storage.Storage;
+import eci.cosw.ecingnovation.myuniapp.ui.adapters.NewsAdapter;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private RecyclerView recyclerView;
+    private NewsAdapter newsAdapter;
+    private RecyclerView.LayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        recyclerView = findViewById(R.id.recyclerView);
+        configureRecyclerView();
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -43,6 +63,39 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
+        getNewsFromAPI();
+
+    }
+
+    private void configureRecyclerView() {
+        recyclerView.setHasFixedSize( true );
+        layoutManager = new LinearLayoutManager( this );
+        recyclerView.setLayoutManager(layoutManager);
+        newsAdapter = new NewsAdapter();
+        recyclerView.setAdapter(newsAdapter);
+    }
+
+    private void getNewsFromAPI() {
+        Storage storage = new Storage(this);
+        System.out.println(storage.getToken());
+        NewsService newsService = APIClient.getNewsService(storage.getToken());
+        Call<List<AppNew>> call = newsService.getAllNews();
+        call.enqueue(new Callback<List<AppNew>>() {
+            @Override
+            public void onResponse(Call<List<AppNew>> call, Response<List<AppNew>> response) {
+                ArrayList<AppNew> result = (ArrayList<AppNew>) response.body();
+                newsAdapter.updateNewsList(result);
+                if (!response.isSuccessful()) {
+                    System.out.println("[ERROR] There was a an error at getNewsFromAPI -> onResponse... ");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<AppNew>> call, Throwable t) {
+                System.out.println("onFailure: " + t.getMessage());
+            }
+        });
     }
 
     @Override
@@ -95,17 +148,13 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_home) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_mapa) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_noticias) {
 
-        } else if (id == R.id.nav_tools) {
+        } else if (id == R.id.nav_kioskos) {
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_sitio) {
 
         }
 
