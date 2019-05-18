@@ -37,4 +37,12 @@ public class Storage {
     {
         sharedPreferences.edit().remove( TOKEN_KEY ).apply();
     }
+
+    public void saveEmail(String email) {
+        sharedPreferences.edit().putString("USER_EMAIL", email).apply();
+    }
+
+    public String getEmail() {
+        return sharedPreferences.getString("USER_EMAIL", null);
+    }
 }

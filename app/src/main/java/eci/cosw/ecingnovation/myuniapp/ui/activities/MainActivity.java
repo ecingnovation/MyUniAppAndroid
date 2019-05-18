@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +27,8 @@ import java.util.List;
 import eci.cosw.ecingnovation.myuniapp.R;
 import eci.cosw.ecingnovation.myuniapp.network.APIClient;
 import eci.cosw.ecingnovation.myuniapp.network.model.AppNew;
+import eci.cosw.ecingnovation.myuniapp.network.model.User;
+import eci.cosw.ecingnovation.myuniapp.network.services.AccountsService;
 import eci.cosw.ecingnovation.myuniapp.network.services.NewsService;
 import eci.cosw.ecingnovation.myuniapp.storage.Storage;
 import eci.cosw.ecingnovation.myuniapp.ui.adapters.NewsAdapter;
@@ -48,14 +53,7 @@ public class MainActivity extends AppCompatActivity
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -64,6 +62,7 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
+        getBasicUserInformation();
         getNewsFromAPI();
 
     }
@@ -94,6 +93,32 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onFailure(Call<List<AppNew>> call, Throwable t) {
                 System.out.println("onFailure: " + t.getMessage());
+            }
+        });
+    }
+
+    private void getBasicUserInformation() {
+        Storage storage = new Storage(this);
+        String email = storage.getEmail();
+        System.out.println("[EXPECTING A LOT] " + email);
+        AccountsService accountsService = APIClient.getAccountsService(storage.getToken());
+        final Call<User> userCall = accountsService.getUserByEmail(email);
+        userCall.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if (response.isSuccessful()) {
+                    User user = response.body();
+                    TextView viewEmail = findViewById(R.id.user_email);
+                    TextView viewName = findViewById(R.id.user_name);
+                    viewEmail.setText(user.getEmail());
+                    viewName.setText(user.getName() + " " + user.getLastName());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                System.out.println("Callback Error: " + t.getLocalizedMessage());
+                Toast.makeText(getApplicationContext(), R.string.something_went_wrong, Toast.LENGTH_SHORT).show();
             }
         });
     }

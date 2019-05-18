@@ -2,6 +2,7 @@ package eci.cosw.ecingnovation.myuniapp.network;
 
 import java.io.IOException;
 
+import eci.cosw.ecingnovation.myuniapp.network.services.AccountsService;
 import eci.cosw.ecingnovation.myuniapp.network.services.LoginService;
 import eci.cosw.ecingnovation.myuniapp.network.services.NewsService;
 import okhttp3.Interceptor;
@@ -59,6 +60,11 @@ public class APIClient {
     public static NewsService getNewsService(String token) {
         Retrofit retrofit = getRetrofitInterceptorInstance(token);
         return retrofit.create(NewsService.class);
+    }
+
+    public static AccountsService getAccountsService(String token) {
+        Retrofit retrofit = getRetrofitInterceptorInstance(token);
+        return retrofit.create(AccountsService.class);
     }
 
 }
