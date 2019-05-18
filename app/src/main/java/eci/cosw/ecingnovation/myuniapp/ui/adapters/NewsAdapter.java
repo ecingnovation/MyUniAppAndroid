@@ -1,12 +1,16 @@
 package eci.cosw.ecingnovation.myuniapp.ui.adapters;
 
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -29,10 +33,19 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         AppNew appNew = newsList.get(position);
         holder.title.setText(appNew.title);
         holder.publisher.setText("Por " + appNew.publisher);
-        holder.type.setText(appNew.type);
+        //holder.type.setText(appNew.type);
         holder.date.setText(StringUtils.getFormattedDate(String.valueOf(appNew.date)));
         holder.email.setText(appNew.email);
         holder.content.setText(appNew.content);
+        holder.typeIcon.setImageResource(selectIcon(appNew));
+        Picasso.get().load(appNew.imageURL).into(holder.image);
+    }
+
+    private int selectIcon(AppNew appNew) {
+        if (appNew.type.equals("Normal")) return R.drawable.ic_check_circle_black_24dp;
+        else if (appNew.type.equals("Warning")) return R.drawable.ic_warning_black_24dp;
+        else if (appNew.type.equals("Info")) return R.drawable.ic_info_black_24dp;
+        else return R.drawable.ic_check_circle_black_24dp;
     }
 
     public void updateNewsList(List<AppNew> newsList) {
@@ -48,19 +61,21 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     class ViewHolder extends RecyclerView.ViewHolder {
         public TextView title;
         public TextView publisher;
-        public TextView type;
         public TextView date;
         public TextView email;
         public TextView content;
+        public ImageView typeIcon;
+        public ImageView image;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.new_title);
             date = itemView.findViewById(R.id.new_date);
-            type = itemView.findViewById(R.id.new_type);
             publisher = itemView.findViewById(R.id.new_publisher);
             email = itemView.findViewById(R.id.new_email);
             content = itemView.findViewById(R.id.new_content);
+            typeIcon = itemView.findViewById(R.id.new_icontype);
+            image = itemView.findViewById(R.id.new_image);
         }
     }
 

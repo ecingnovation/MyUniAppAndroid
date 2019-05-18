@@ -21,10 +21,9 @@
                 android:id="@+id/new_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
                 android:textColor="@android:color/black"
-                android:textSize="24sp" />
+                android:textSize="20sp"
+                android:layout_toLeftOf="@id/new_icontype"/>
 
             <TextView
                 android:id="@+id/new_date"
@@ -34,11 +33,24 @@
                 android:textSize="10sp"/>
 
             <TextView
-                android:id="@+id/new_type"
+                android:id="@+id/simple_space"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/new_title"
-                android:gravity="right"/>
+                android:layout_below="@id/new_date"/>
+
+            <ImageView
+                android:id="@+id/new_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/simple_space"
+                android:src="@drawable/logo"/>
+
+            <ImageView
+                android:id="@+id/new_icontype"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_menu_slideshow" />
 
             <!--TODO Photo-->
 
@@ -46,7 +58,7 @@
                 android:id="@+id/new_publisher"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/new_date"
+                android:layout_below="@id/new_image"
                 android:textSize="16sp" />
 
             <TextView
@@ -65,5 +77,6 @@
                 android:layout_marginTop="14sp"/>
 
         </RelativeLayout>
+
     </androidx.cardview.widget.CardView>
 </RelativeLayout>
