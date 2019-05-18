@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -18,6 +19,8 @@ import eci.cosw.ecingnovation.myuniapp.R;
 import eci.cosw.ecingnovation.myuniapp.network.APIClient;
 import eci.cosw.ecingnovation.myuniapp.network.model.LoginWrapper;
 import eci.cosw.ecingnovation.myuniapp.network.model.Token;
+import eci.cosw.ecingnovation.myuniapp.network.model.User;
+import eci.cosw.ecingnovation.myuniapp.network.services.AccountsService;
 import eci.cosw.ecingnovation.myuniapp.network.services.LoginService;
 import eci.cosw.ecingnovation.myuniapp.storage.Storage;
 import eci.cosw.ecingnovation.myuniapp.ui.utils.StringUtils;
@@ -49,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void handleLogin(String email, String password) {
+        storage.saveEmail(email);
         LoginService apiService = APIClient.getLoginService();
         Call<Token> tokenCall = apiService.attemptLogin(new LoginWrapper(email, password));
         // Enqueue makes an asynchronous request, which doesn't block ui thread, therefore no ExecutorService.execute needed
