@@ -77,7 +77,6 @@ public class MainActivity extends AppCompatActivity
 
     private void getNewsFromAPI() {
         Storage storage = new Storage(this);
-        System.out.println(storage.getToken());
         NewsService newsService = APIClient.getNewsService(storage.getToken());
         Call<List<AppNew>> call = newsService.getAllNews();
         call.enqueue(new Callback<List<AppNew>>() {
@@ -100,7 +99,6 @@ public class MainActivity extends AppCompatActivity
     private void getBasicUserInformation() {
         Storage storage = new Storage(this);
         String email = storage.getEmail();
-        System.out.println("[EXPECTING A LOT] " + email);
         AccountsService accountsService = APIClient.getAccountsService(storage.getToken());
         final Call<User> userCall = accountsService.getUserByEmail(email);
         userCall.enqueue(new Callback<User>() {

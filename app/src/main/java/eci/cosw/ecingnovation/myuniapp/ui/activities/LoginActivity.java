@@ -53,8 +53,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private void handleLogin(String email, String password) {
         storage.saveEmail(email);
-        System.out.println(email);
-        System.out.println(storage.getEmail());
         LoginService apiService = APIClient.getLoginService();
         Call<Token> tokenCall = apiService.attemptLogin(new LoginWrapper(email, password));
         // Enqueue makes an asynchronous request, which doesn't block ui thread, therefore no ExecutorService.execute needed
