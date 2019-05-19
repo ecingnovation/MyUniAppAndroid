@@ -25,6 +25,7 @@
     <string name="action_logout">Logout</string>
     <string name="menu_mapa">Mapa</string>
     <string name="menu_noticias">Noticias</string>
+    <string name="menu_post_noticia">Publicar Noticia</string>
     <string name="menu_kioskos">Kioskos</string>
     <string name="menu_sitio">Sitio</string>
 </resources>

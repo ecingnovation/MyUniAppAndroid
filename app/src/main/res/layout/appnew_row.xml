@@ -42,8 +42,7 @@
                 android:id="@+id/new_image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/simple_space"
-                android:src="@drawable/logo"/>
+                android:layout_below="@id/simple_space" />
 
             <ImageView
                 android:id="@+id/new_icontype"
@@ -51,8 +50,6 @@
                 android:layout_height="24dp"
                 android:layout_alignParentRight="true"
                 android:src="@drawable/ic_menu_slideshow" />
-
-            <!--TODO Photo-->
 
             <TextView
                 android:id="@+id/new_publisher"

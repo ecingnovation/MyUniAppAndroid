@@ -38,7 +38,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         holder.email.setText(appNew.email);
         holder.content.setText(appNew.content);
         holder.typeIcon.setImageResource(selectIcon(appNew));
-        Picasso.get().load(appNew.imageURL).into(holder.image);
+        if (!appNew.imageURL.equals("")) Picasso.get().load(appNew.imageURL).into(holder.image);
     }
 
     private int selectIcon(AppNew appNew) {

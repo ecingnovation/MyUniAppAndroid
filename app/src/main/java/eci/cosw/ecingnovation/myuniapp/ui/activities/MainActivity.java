@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,24 +12,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import eci.cosw.ecingnovation.myuniapp.R;
 import eci.cosw.ecingnovation.myuniapp.network.APIClient;
-import eci.cosw.ecingnovation.myuniapp.network.model.AppNew;
 import eci.cosw.ecingnovation.myuniapp.network.model.User;
 import eci.cosw.ecingnovation.myuniapp.network.services.AccountsService;
-import eci.cosw.ecingnovation.myuniapp.network.services.NewsService;
 import eci.cosw.ecingnovation.myuniapp.storage.Storage;
-import eci.cosw.ecingnovation.myuniapp.ui.adapters.NewsAdapter;
+import eci.cosw.ecingnovation.myuniapp.ui.fragments.NewsFragment;
+import eci.cosw.ecingnovation.myuniapp.ui.fragments.PostNewFragment;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,17 +29,10 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private RecyclerView recyclerView;
-    private NewsAdapter newsAdapter;
-    private RecyclerView.LayoutManager layoutManager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        recyclerView = findViewById(R.id.recyclerView);
-        configureRecyclerView();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -63,37 +46,12 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         getBasicUserInformation();
-        getNewsFromAPI();
+        //getNewsFromAPI();
 
-    }
-
-    private void configureRecyclerView() {
-        recyclerView.setHasFixedSize( true );
-        layoutManager = new LinearLayoutManager( this );
-        recyclerView.setLayoutManager(layoutManager);
-        newsAdapter = new NewsAdapter();
-        recyclerView.setAdapter(newsAdapter);
-    }
-
-    private void getNewsFromAPI() {
-        Storage storage = new Storage(this);
-        NewsService newsService = APIClient.getNewsService(storage.getToken());
-        Call<List<AppNew>> call = newsService.getAllNews();
-        call.enqueue(new Callback<List<AppNew>>() {
-            @Override
-            public void onResponse(Call<List<AppNew>> call, Response<List<AppNew>> response) {
-                ArrayList<AppNew> result = (ArrayList<AppNew>) response.body();
-                newsAdapter.updateNewsList(result);
-                if (!response.isSuccessful()) {
-                    System.out.println("[ERROR] There was a an error at getNewsFromAPI -> onResponse... ");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<AppNew>> call, Throwable t) {
-                System.out.println("onFailure: " + t.getMessage());
-            }
-        });
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new NewsFragment()).commit();
+            navigationView.setCheckedItem(R.id.nav_noticias);
+        }
     }
 
     private void getBasicUserInformation() {
@@ -174,7 +132,9 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_mapa) {
 
         } else if (id == R.id.nav_noticias) {
-
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new NewsFragment()).commit();
+        } else if (id == R.id.nav_postnew) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PostNewFragment()).commit();
         } else if (id == R.id.nav_kioskos) {
 
         } else if (id == R.id.nav_sitio) {

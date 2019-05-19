@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="15dp">
+
+        <TextView
+            android:id="@+id/text_titulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Título"
+            android:textSize="16sp"/>
+
+        <EditText
+            android:id="@+id/edit_titulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_titulo"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="Título"/>
+
+        <TextView
+            android:id="@+id/text_editor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre del Editor"
+            android:layout_below="@id/edit_titulo"/>
+
+        <EditText
+            android:id="@+id/edit_editor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_editor"
+            android:hint="Nombre del editor"/>
+
+        <TextView
+            android:id="@+id/text_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edit_editor"
+            android:text="Fecha"/>
+
+        <!-- TODO Dialog or Format Hint -->
+        <EditText
+            android:id="@+id/edit_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="date"
+            android:layout_below="@id/text_date"/>
+
+        <TextView
+            android:id="@+id/text_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edit_date"
+            android:text="Tipo de Noticia"/>
+
+        <RadioGroup
+            android:id="@+id/radio_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_type">
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Normal"/>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Informativa" />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Alerta"/>
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/text_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email de Contacto"
+            android:layout_below="@id/radio_group"/>
+
+        <EditText
+            android:id="@+id/edit_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_email"
+            android:hint="Email"/>
+
+        <TextView
+            android:id="@+id/text_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Contenido de la noticia"
+            android:layout_below="@id/edit_email"/>
+
+        <EditText
+            android:id="@+id/edit_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minLines="5"
+            android:layout_below="@id/text_content"
+            android:hint="Contenido"/>
+
+        <TextView
+            android:id="@+id/text_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="URL de Imagen"
+            android:layout_below="@id/edit_content"/>
+
+        <EditText
+            android:id="@+id/edit_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_image"
+            android:hint="URL"/>
+
+
+        <Button
+            android:id="@+id/button_send_new"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Publicar Noticia"
+            android:layout_below="@id/edit_image"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/button_send_new"/>
+
+
+
+
+    </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

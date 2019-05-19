@@ -13,6 +13,10 @@
             android:icon="@drawable/ic_web_black_24dp"
             android:title="@string/menu_noticias" />
         <item
+            android:id="@+id/nav_postnew"
+            android:icon="@drawable/ic_web_black_24dp"
+            android:title="@string/menu_post_noticia" />
+        <item
             android:id="@+id/nav_kioskos"
             android:icon="@drawable/ic_restaurant_black_24dp"
             android:title="@string/menu_kioskos" />
