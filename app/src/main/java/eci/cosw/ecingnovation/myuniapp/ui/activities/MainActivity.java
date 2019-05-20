@@ -20,6 +20,7 @@ import eci.cosw.ecingnovation.myuniapp.network.APIClient;
 import eci.cosw.ecingnovation.myuniapp.network.model.User;
 import eci.cosw.ecingnovation.myuniapp.network.services.AccountsService;
 import eci.cosw.ecingnovation.myuniapp.storage.Storage;
+import eci.cosw.ecingnovation.myuniapp.ui.fragments.MapViewFragment;
 import eci.cosw.ecingnovation.myuniapp.ui.fragments.NewsFragment;
 import eci.cosw.ecingnovation.myuniapp.ui.fragments.PostNewFragment;
 import retrofit2.Call;
@@ -130,7 +131,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_mapa) {
-
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MapViewFragment()).commit();
         } else if (id == R.id.nav_noticias) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new NewsFragment()).commit();
         } else if (id == R.id.nav_postnew) {
