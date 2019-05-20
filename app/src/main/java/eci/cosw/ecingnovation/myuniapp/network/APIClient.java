@@ -2,9 +2,8 @@ package eci.cosw.ecingnovation.myuniapp.network;
 
 import java.io.IOException;
 
-import eci.cosw.ecingnovation.myuniapp.network.model.InterestPoint;
 import eci.cosw.ecingnovation.myuniapp.network.services.AccountsService;
-import eci.cosw.ecingnovation.myuniapp.network.services.InterestPointService;
+import eci.cosw.ecingnovation.myuniapp.network.services.MapService;
 import eci.cosw.ecingnovation.myuniapp.network.services.LoginService;
 import eci.cosw.ecingnovation.myuniapp.network.services.NewsService;
 import okhttp3.Interceptor;
@@ -69,8 +68,8 @@ public class APIClient {
         return retrofit.create(AccountsService.class);
     }
 
-    public static InterestPointService getInterestPointService(String token){
+    public static MapService getMapService(String token){
         Retrofit retrofit = getRetrofitInterceptorInstance(token);
-        return retrofit.create(InterestPointService.class);
+        return retrofit.create(MapService.class);
     }
 }

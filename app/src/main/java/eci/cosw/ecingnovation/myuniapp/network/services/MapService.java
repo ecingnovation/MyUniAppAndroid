@@ -10,13 +10,13 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
-public interface InterestPointService {
+public interface MapService {
 
     @GET("map/points")
-    Call<List<InterestPoint>> getAllInterestPoints() ;
+    Call<List<InterestPoint>> getAllInterestPoints();
 
     @GET("map/points/{id}")
-    Call<ResponseBody> getInterestPointById(@Path("id") String id );
+    Call<InterestPoint> getInterestPointById(@Path("id") String id );
 
     @POST("map/points")
     Call<ResponseBody> createPoint(String id, String title, String label, Double lng, Double lat, String description, String image);

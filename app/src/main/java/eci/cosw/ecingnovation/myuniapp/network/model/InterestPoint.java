@@ -2,18 +2,18 @@ package eci.cosw.ecingnovation.myuniapp.network.model;
 
 public class InterestPoint {
     private String id;
-    private String Description;
-    private String Title;
-    private String Label;
+    private String description;
+    private String title;
+    private String label;
     private Double lng;
     private Double lat;
     private String imageURL;
 
     public InterestPoint(String id, String description, String title, String label, Double lng, Double lat, String imageURL) {
         this.id = id;
-        Description = description;
-        Title = title;
-        Label = label;
+        this.description = description;
+        this.title = title;
+        this.label = label;
         this.lng = lng;
         this.lat = lat;
         this.imageURL = imageURL;
@@ -28,27 +28,27 @@ public class InterestPoint {
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        this.description = description;
     }
 
     public String getTitle() {
-        return Title;
+        return title;
     }
 
     public void setTitle(String title) {
-        Title = title;
+        this.title = title;
     }
 
     public String getLabel() {
-        return Label;
+        return label;
     }
 
     public void setLabel(String label) {
-        Label = label;
+        this.label = label;
     }
 
     public Double getLng() {
@@ -79,9 +79,9 @@ public class InterestPoint {
     public String toString() {
         return "InterestPoint{" +
                 "id='" + id + '\'' +
-                ", Description='" + Description + '\'' +
-                ", Title='" + Title + '\'' +
-                ", Label='" + Label + '\'' +
+                ", Description='" + description + '\'' +
+                ", Title='" + title + '\'' +
+                ", Label='" + label + '\'' +
                 ", lng=" + lng +
                 ", lat=" + lat +
                 ", imageURL='" + imageURL + '\'' +
